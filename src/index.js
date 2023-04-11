@@ -20,11 +20,18 @@ function checksExistsUserAccount(request, response, next) {
     request.user = user;
     return next();
   };
-}
+};
 
 function checksCreateTodosUserAvailability(request, response, next) {
   // Complete aqui
-}
+  const {user} = request;
+
+  if((user.pro = false && user.todos.lenght < 10) ||(user.pro = true)) {
+    return next();
+  } else {
+    return response.status(400).json({error: "Limite de todos atingido!"});
+  }
+};
 
 function checksTodoExists(request, response, next) {
   // Complete aqui
