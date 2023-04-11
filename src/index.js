@@ -47,11 +47,20 @@ function checksTodoExists(request, response, next) {
     request.user = user;
     request.todo = todo;
     return next();
-}
+}};
 
 function findUserById(request, response, next) {
   // Complete aqui
-}
+  const {id} = request.params;
+  const user = users.find((user) => user.id === id);
+
+  if(!user){
+    return response.status(400).json({error:"User not found!"});
+  } else {
+    request.user = user;
+    return next();
+  };
+};
 
 app.post('/users', (request, response) => {
   const { name, username } = request.body;
@@ -155,4 +164,4 @@ module.exports = {
   checksCreateTodosUserAvailability,
   checksTodoExists,
   findUserById
-};
+}
